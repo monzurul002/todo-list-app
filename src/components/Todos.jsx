@@ -2,17 +2,24 @@ import { useEffect, useRef, useState } from "react";
 import { FaPenNib } from "react-icons/fa";
 import { TfiWrite } from "react-icons/tfi";
 
+
+
+//getTOdosfromlocalStorage
+const getLocalStorageLits = () => {
+    const lists = localStorage.getItem("lists")
+    if (lists) {
+        return JSON.parse(lists)
+    } else {
+        return []
+    }
+}
+
 const Todos = () => {
-    const [tasks, setTasks] = useState([])
+    const [tasks, setTasks] = useState(getLocalStorageLits())
     const [taskDetails, setTaskDetails] = useState({})
     const [taskPriority, setTaskPriority] = useState("")
     const titleRef = useRef()
     const descriptionRef = useRef()
-
-
-
-    //getTOdosfromlocalStorage
-    // const get
 
 
 
@@ -26,14 +33,11 @@ const Todos = () => {
             taskPriority
         }
         setTaskDetails(taskInfo)
-
-
-
     }
 
 
     useEffect(() => {
-        localStorage.setItem("tasks", JSON.stringify(...tasks, taskDetails))
+        localStorage.setItem("lists", JSON.stringify([...tasks, taskDetails]))
     }, [taskDetails, tasks])
 
 
