@@ -8,9 +8,9 @@ const Footer = () => {
             <div className="flex justify-center items-center space-y-16">
                 <div className="pt-16">
                     <div className="w-1/2 mx-auto pb-8 flex  gap-2">
-                        <FaFacebook className="text-2xl" />
-                        <FaLinkedinIn className="text-2xl" />
-                        <FaSquareXTwitter className="text-2xl" />
+                        <a href="https://www.facebook.com/QtecSolution" target="_blank"><FaFacebook className="text-2xl" /> </a>
+                        <a href="https://twitter.com/qtec_solution" target="_blank"><FaSquareXTwitter className="text-2xl" /></a>
+                        <a href="https://www.linkedin.com/company/qtec-solution/" target="_blank"><FaLinkedinIn className="text-2xl" /> </a>
                     </div>
 
                     <p>Copyright &#169;	2024-All right reserved. </p>
