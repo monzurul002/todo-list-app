@@ -30,6 +30,7 @@ const Todos = () => {
             return alert("Form fill up frist correctly.")
         }
         const taskInfo = {
+            id: "todo" + Math.random().toString(16).slice(2, 9),
             title,
             description,
             completed: false,
@@ -133,7 +134,7 @@ const Todos = () => {
                     </thead>
                     <tbody>
                         {
-                            tasks.map((list, index) => <Lists list={list} key={index} index={index}></Lists>)
+                            tasks.map((list, index) => <Lists list={list} key={index} index={index} tasks={tasks} setTasks={setTasks} ></Lists>)
                         }
                     </tbody>
                 </table>
