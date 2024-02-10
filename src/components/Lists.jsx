@@ -36,14 +36,12 @@ const Lists = ({ list, index, tasks, setTasks }) => {
             title: title,
             description,
             completed: false,
-            taskPriority
+            taskPriority: updateTaskPriority
         };
         const newAllTasksList = tasks.filter(task => task.id !== editItemId)
 
         const updatedTasks = [...newAllTasksList, taskInfo];
-        // const updatedTasks = [...tasks, taskInfo];
 
-        setTasks(updatedTasks);
         // Update state with updated tasks
         setTasks(updatedTasks);
         localStorage.setItem("lists", JSON.stringify(updatedTasks));
@@ -65,16 +63,26 @@ const Lists = ({ list, index, tasks, setTasks }) => {
         setEditItemId(id);
         document.getElementById("my_modal_2").showModal();
 
+    }
+    const handleCompleted = (id) => {
+        const findItem = tasks.find(item => item.id === id);;
+        findItem.completed = true;
+        const newAllTasksList = tasks.filter(task => task.id !== id)
+
+        const updatedTasks = [...newAllTasksList, findItem];
+
+        // Update state with updated tasks
+        setTasks(updatedTasks);
+        localStorage.setItem("lists", JSON.stringify(updatedTasks));
 
     }
-
     return (
         <>
             <tr className={`${taskPriority === "high" ? "bg-red-400" : taskPriority === "medium" ? "bg-yellow-200" : "bg-primary"}`}>
                 <th>{index + 1}</th>
-                <td>{title}</td>
+                <td className={`${completed ? "line-through" : ""}`}>{title}</td>
                 <td>{description}</td>
-                <td>{completed ? <input type="checkbox" checked="checked" className="checkbox checkbox-xs checkbox-success" /> :
+                <td onClick={() => handleCompleted(id)}>{completed ? <input type="checkbox" checked="checked" className="checkbox checkbox-xs checkbox-success " /> :
                     <input type="radio" name="radio-5" className="radio radio-success" />}</td>
                 <td className=" px-2  text-green-600 font-bold text-xl ">
                     <button title="double click needed" onClick={() => handleUpdateTask(id)} className="px-2 py-2 rounded-lg bg-green-500">

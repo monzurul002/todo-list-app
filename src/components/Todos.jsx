@@ -62,7 +62,7 @@ const Todos = () => {
                 <p className="text-xl font-sm text-gray-400">Here you will get all your ToDo list.</p>
 
                 {/* Add Todo button */}
-                <button className="btn bg-indigo-700 text-white my-3" onClick={() => document.getElementById("my_modal_1").showModal()}><TfiWrite /> ADD NEW TODOS</button>
+                <button className="btn bg-indigo-700 text-white my-3 hover:bg-indigo-900" onClick={() => document.getElementById("my_modal_1").showModal()}><TfiWrite /> ADD NEW TODOS</button>
 
                 {/* modal */}
                 <Modal handleSubmit={handleSubmit} handleClose={handleClose} titleRef={titleRef} descriptionRef={descriptionRef} setTaskPriority={setTaskPriority} ></Modal>
@@ -77,7 +77,7 @@ const Todos = () => {
                 <table className="table">
                     {/* head */}
                     <thead>
-                        <tr className=" text-white text-md bg-slate-400">
+                        <tr className=" text-white text-md bg-slate-600">
                             <th>#</th>
 
                             <th>Title</th>
