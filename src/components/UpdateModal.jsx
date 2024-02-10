@@ -12,9 +12,10 @@ const UpdateModal = ({ handleSubmit, list, handleClose, titleRef, descriptionRef
                 <div className="modal-box w-10/12 bg-primary text-white ">
                     <h2 className="text-center font-bold text-gray-300 text-xl">Update Your Todo</h2>
                     <h2 className="text-center border py-2 bg-yellow-600">Updating title name <span className="text-xl font-bold text-black">{listItem?.title}</span></h2>
+                    {/* close btn */}
+                    <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onClick={() => handleClose()}>✕</button>
+                    {/* update form */}
                     <form onSubmit={handleSubmit}>
-                        {/* close btn */}
-                        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onClick={() => handleClose()}>✕</button>
 
                         {/* task title input area */}
                         <label className="form-control w-full ">

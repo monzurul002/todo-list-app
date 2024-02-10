@@ -27,6 +27,7 @@ const Todos = () => {
         const title = titleRef.current.value;
         const description = descriptionRef.current.value;
         if (!title || !description || !taskPriority) {
+
             return alert("Form fill up frist correctly.")
         }
         const taskInfo = {

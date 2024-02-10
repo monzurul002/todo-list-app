@@ -9,9 +9,10 @@ const Modal = ({ handleSubmit, handleClose, titleRef, descriptionRef, setTaskPri
             <dialog id="my_modal_1" className="modal">
                 <div className="modal-box w-10/12 bg-primary text-white ">
                     <h2 className="text-center font-bold text-gray-300 text-xl">Add Your Todo List</h2>
+                    {/* close btn */}
+                    <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onClick={() => handleClose()}>✕</button>
+                    {/* modal form */}
                     <form onSubmit={handleSubmit}>
-                        {/* close btn */}
-                        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onClick={() => handleClose()}>✕</button>
 
                         {/* task title input area */}
                         <label className="form-control w-full ">
