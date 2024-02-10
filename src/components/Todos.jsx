@@ -3,6 +3,7 @@ import { useRef, useState } from "react";
 import { TfiWrite } from "react-icons/tfi";
 import Lists from "./Lists";
 import Modal from "./Modal";
+import UpdateModal from "./UpdateModal";
 
 const Todos = () => {
     //getTOdosfromlocalStorage
@@ -89,7 +90,10 @@ const Todos = () => {
                     <tbody>
                         {
                             tasks.map((list, index) => <Lists list={list} key={index} index={index} tasks={tasks} setTasks={setTasks} ></Lists>)
+
                         }
+
+
                     </tbody>
                 </table>
             </div>

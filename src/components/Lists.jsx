@@ -1,6 +1,6 @@
 
 import { useRef, useState } from "react";
-import { FaRegEdit } from "react-icons/fa";
+import { FaPenNib, FaRegEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 
 import UpdateModal from "./UpdateModal";
@@ -21,14 +21,51 @@ const Lists = ({ list, index, tasks, setTasks }) => {
     }
 
     //edit a list
-    const handleSubmit = (e, id) => {
-        e.preventDefault()
-        setEditItemId(id);
-    }
+    //addTodo
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const title = titleRef.current.value;
+        const description = descriptionRef.current.value;
+        console.log(description);
+        if (!title || !description || !taskPriority) {
+            return alert("Form fill up frist correctly.")
+        }
+
+        const taskInfo = {
+            id: editItemId,
+            title: title,
+            description,
+            completed: false,
+            taskPriority
+        };
+        const newAllTasksList = tasks.filter(task => task.id !== editItemId)
+
+        const updatedTasks = [...newAllTasksList, taskInfo];
+        // const updatedTasks = [...tasks, taskInfo];
+
+        setTasks(updatedTasks);
+        // Update state with updated tasks
+        setTasks(updatedTasks);
+        localStorage.setItem("lists", JSON.stringify(updatedTasks));
+        // Clear title input field
+        titleRef.current.value = "";
+        descriptionRef.current.value = "";
+        setUpdateTaskPriority("");
+
+    };
+
+
     //modal close function
     function handleClose() {
-        const modal = document.getElementById("my_modal_1");
+        const modal = document.getElementById("my_modal_2");
         modal.close();
+    }
+
+    const handleUpdateTask = (id) => {
+        setEditItemId(id);
+        document.getElementById("my_modal_2").showModal();
+
+
     }
 
     return (
@@ -40,16 +77,21 @@ const Lists = ({ list, index, tasks, setTasks }) => {
                 <td>{completed ? <input type="checkbox" checked="checked" className="checkbox checkbox-xs checkbox-success" /> :
                     <input type="radio" name="radio-5" className="radio radio-success" />}</td>
                 <td className=" px-2  text-green-600 font-bold text-xl ">
-                    <button onClick={() => document.getElementById("my_modal_2").showModal()} className="px-2 py-2 rounded-lg bg-green-500">
+                    <button title="double click needed" onClick={() => handleUpdateTask(id)} className="px-2 py-2 rounded-lg bg-green-500">
                         <FaRegEdit className="text-white" />
                     </button>
                 </td>
                 <td>
                     <button onClick={() => handleDeleteAList(id)} className="text-2xl bg-red-400 px-1 py-1 rounded-lg"><MdDelete className="text-white" /></button>
                 </td>
+
             </tr>
 
-            <UpdateModal handleSubmit={handleSubmit} handleClose={handleClose} titleRef={titleRef} descriptionRef={descriptionRef} setUpdateTaskPriority={setUpdateTaskPriority} />
+            {
+                editItemId && <UpdateModal handleSubmit={handleSubmit} editItemId={editItemId} list={list} tasks={tasks} setTasks={setTasks} handleClose={handleClose} titleRef={titleRef} descriptionRef={descriptionRef} setUpdateTaskPriority={setUpdateTaskPriority} />
+            }
+
+
         </>
     );
 };
