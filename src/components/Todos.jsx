@@ -1,10 +1,9 @@
 
 import { useRef, useState } from "react";
-import { TfiWrite } from "react-icons/tfi";
 import Lists from "./Lists";
 import Modal from "./Modal";
-import UpdateModal from "./UpdateModal";
-
+import { LuPlusCircle } from "react-icons/lu";
+import notask from "../assets/notask.png"
 const Todos = () => {
     //getTOdosfromlocalStorage
     const getLocalStorageLits = () => {
@@ -55,14 +54,23 @@ const Todos = () => {
         modal.close();
     }
 
+    const completedTask = tasks.filter(task => task.completed === true)
+
+
     return (
         <div className="w-11/12 mx-auto text-white">
             <div className="text-center">
                 <h2 className="text-2xl md:text-3xl pt-8 font-bold text-gray-300 text-center">ToDo List</h2>
                 <p className="text-xl font-sm text-gray-400">Here you will get all your ToDo list.</p>
 
-                {/* Add Todo button */}
-                <button className="btn bg-indigo-700 text-white my-3 hover:bg-indigo-900" onClick={() => document.getElementById("my_modal_1").showModal()}><TfiWrite /> ADD NEW TODOS</button>
+                <div className="flex justify-between flex-col-reverse mb-4 md:flex-row  items-center">
+                    <div className="flex justify-between gap-4">
+                        <h2 className="text-xl font-semibold">Total Task: {tasks.length}</h2>
+                        <h2 className="text-xl font-semibold">Completed Task : {completedTask.length}</h2>
+                    </div>
+                    {/* Add Todo button */}
+                    <button className="btn bg-indigo-700 text-white my-3 hover:bg-indigo-900" onClick={() => document.getElementById("my_modal_1").showModal()}><LuPlusCircle className="font-bold text-xl text-md text-white" /> ADD NEW TODOS</button>
+                </div>
 
                 {/* modal */}
                 <Modal handleSubmit={handleSubmit} handleClose={handleClose} titleRef={titleRef} descriptionRef={descriptionRef} setTaskPriority={setTaskPriority} ></Modal>
@@ -74,28 +82,41 @@ const Todos = () => {
             {/* show list by table */}
             <div className="overflow-x-auto ">
 
-                <table className="table">
-                    {/* head */}
-                    <thead>
-                        <tr className=" text-white text-md bg-slate-600">
-                            <th>#</th>
+                {
+                    tasks.length === 0 ? <div className="flex flex-col justify-center items-center ">
+                        <img src={notask} className="w-44" alt="" />
+                        <h2 className="text-3xl py-5 text-center font-bold">You have no task </h2>
+                    </div> :
+                        <table className="table">
+                            {/* head */}
+                            <thead>
+                                <tr className=" text-white text-md bg-slate-600">
+                                    <th>#</th>
 
-                            <th>Title</th>
-                            <th>Description</th>
-                            <th>Completed</th>
-                            <th>Edit</th>
-                            <th>Delete</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            tasks.map((list, index) => <Lists list={list} key={index} index={index} tasks={tasks} setTasks={setTasks} ></Lists>)
+                                    <th>Title</th>
+                                    <th>Description</th>
+                                    <th>Completed</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    tasks.map((list, index) => <Lists list={list} key={index} index={index} tasks={tasks} setTasks={setTasks} ></Lists>)
 
-                        }
+                                }
 
 
-                    </tbody>
-                </table>
+                            </tbody>
+                        </table>
+                }
+
+                <div className=" flex justify-center gap-4 bg-gray-900 px-3 py-2 space-y-1 text-white">
+
+                    <p className=" font-semibold flex justify-between gap-2 items-center">Low <span className="w-6 h-6 rounded-full bg-primary text-primary">ddi</span> </p>
+                    <p className=" font-semibold flex justify-between gap-2">Medium <span className="w-6 h-6 rounded-full bg-yellow-600  text-yellow-600">ddi</span> </p>
+                    <p className="font-semibold flex justify-between items-center gap-2 ">High <span className="w-6 h-6 rounded-full bg-indigo-700 text-indigo-700">ddi</span> </p>
+                </div>
             </div>
         </div>
     );
@@ -107,55 +128,3 @@ export default Todos;
 
 
 
-
-
-// <dialog id="my_modal_3" className="modal">
-// <div className="modal-box w-10/12 bg-primary text-white ">
-//     <form onSubmit={handleSubmit}>
-//         {/* close btn */}
-//         <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onClick={() => handleClose()}>✕</button>
-
-//         {/* task title input area */}
-//         <label className="form-control w-full ">
-//             <div className="label">
-//                 <span className="label-text text-white">Task Title</span>
-//             </div>
-//             <div className="input  border-white w-full flex justify-bewteen gap-3 items-center bg-primary ">
-//                 <FaPenNib />
-//                 <input type="text" ref={titleRef} className="bg-primary" placeholder="Type here" />
-//             </div>
-//         </label>
-
-//         {/* description input area */}
-//         <label className="form-control w-full  ">
-//             <div className="label">
-//                 <span className="label-text text-white">Task Description</span>
-//             </div>
-//             <div className="  w-full flex justify-bewteen gap-3 items-center ">
-//                 <textarea placeholder="Desctiption" ref={descriptionRef} className="textarea textarea-bordered textarea-lg w-full bg-primary border-white " ></textarea>
-//             </div>
-//         </label>
-
-//         {/* select option */}
-//         <label className="form-control w-full mt-2 text-white ">
-//             <div className="label">
-//                 <span className="label-text text-white">Task Priority</span>
-//             </div>
-//             <select onChange={(e) => setTaskPriority(e.target.value)} className="select select-bordered border-white bg-primary">
-//                 <option disabled selected>Pick one</option>
-//                 <option value="low">Low</option>
-//                 <option value="medium">Medium</option>
-//                 <option value="high">High</option>
-//             </select>
-//             <div className="label">
-//                 <span className="label-text-alt">Alt label</span>
-//                 <span className="label-text-alt">Alt label</span>
-//             </div>
-//         </label>
-
-//         {/* submit button */}
-//         <input className="btn bg-indigo-700 text-white px-8 hover:bg-warning my-3" type="submit" value="Submit" />
-
-//     </form>
-// </div>
-// </dialog>

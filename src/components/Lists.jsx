@@ -21,7 +21,7 @@ const Lists = ({ list, index, tasks, setTasks }) => {
     }
 
     //edit a list
-    //addTodo
+
     const handleSubmit = (e) => {
         e.preventDefault();
         const title = titleRef.current.value;
@@ -78,7 +78,7 @@ const Lists = ({ list, index, tasks, setTasks }) => {
     }
     return (
         <>
-            <tr className={`${taskPriority === "high" ? "bg-red-400" : taskPriority === "medium" ? "bg-yellow-200" : "bg-primary"}`}>
+            <tr className={`${taskPriority === "high" ? "bg-indigo-700" : taskPriority === "medium" ? "bg-yellow-600" : "bg-primary"} font-bold`}>
                 <th>{index + 1}</th>
                 <td className={`${completed ? "line-through" : ""}`}>{title}</td>
                 <td>{description}</td>
